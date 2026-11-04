@@ -57,7 +57,11 @@ The store wants to keep customer addresses. Propose two architectures for the CU
 **HINT:** search type 1 vs type 2 slowly changing dimensions. 
 
 ```
-Your answer...
+There are at least two possible architectures for the CUSTOMER_ADDRESS table; Type 1 and Type 2 slowly changing dimensions (SCDs).
+
+Using a Type 1 SCD, or overwrite, the table would contain address_id (primary key), customer_id (foreign key), street, city, province, and postal_code. When a customer changes their address, the existing record would be overwritten with the new information. This approach is relatively simple and ensures that the database contains the customer’s current address, but it does not preserve historical information.
+
+Using a Type 2 SCD, or preserving changes through new rows, the table would contain the same columns, along with start_date, end_date, and is_current. Each change would create a new record with a unique address_id. The previous record would be assigned an end_date and marked as no longer current, while the new record would be marked as current. This approach preserves the customer’s address history, allowing the bookstore to identify where customers lived at different points in time.
 ```
 
 ***
@@ -192,5 +196,7 @@ Consider, for example, concepts of labour, bias, LLM proliferation, moderating c
 
 
 ```
-Your thoughts...
+Reading this post, of course, made me think of the role of human labour in contemporary consumer-facing LLMs. Coming from sociology, it's already a truism that LLMs are deeply social on multiple counts: the decisions that firms and developers make in designing their models, biases in training data that reflect unequal patterns of internet use and engagement, reinforcement learning procedures based on human judgements about accuracy, fairness, and market viability. At the same time, these technologies - because they make the labour they depend on invisible - exert an appearance of quasi-objectivity, of a purely technological process whose outputs must be legitimate because they are the product of "technological" rather than "social" judgement. Of course, this distinction doesn't hold up when we look into the human origins of these models, since the technological is necessarily already shaped by and embedded in the social (e.g., in human goals, worldviews, power relations). But even when we acknowledge this intertwining of the social and the technical as users of LLMs, it is still difficult to fully specify exactly how the social world makes its way into LLMs - for instance, because training corpora are so vast that developers may not even know their full contents. This problem becomes exacerbated with the advent of recursive self-improvement, in which LLMs become responsible for training themselves, further "black-boxing" the process of model development. This black-boxing, combined with the aforementioned technocratic trust in LLMs that arises from their seemingly "pure" technical nature, poses many risks, including the perpetuation of human biases embedded in training and reinforcement processes, but also questionable decision making at high levels of authority (e.g., when US military officials trust AI hallucinations, potentially inducing major conflicts). 
+
+Is it possible for us to get a glimpse into this black box of LLMs, in order to rectify - or at least understand - the social biases encoded within them? While I think to some extent audit-style studies of LLMs (e.g., comparing structured prompt outputs to real online corpora) could address these questions to some degree, the size of contemporary LLMs also makes this task increasingly difficult. However, if we are concerned about the transparency of LLMs and mitigating biases in their decision-making processes, we have to confront the question of model scale - whether we are willing to accept the trade-off between model functionality on the one hand, enabled by ever-increasing parameters and training datasets, and model transparency on the other. 
 ```
